@@ -32,6 +32,11 @@ function Navbar() {
           </a>
         </li>
         <li>
+          <a href='/replace' style={{ color: 'white', textDecoration: 'none' }}>
+            Concept
+          </a>
+        </li>
+        <li>
           <a href='/login' style={{ color: 'white', textDecoration: 'none' }}>
             Login
           </a>
