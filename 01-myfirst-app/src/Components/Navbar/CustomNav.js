@@ -1,6 +1,13 @@
 // CustomNav.js
-import React, { useState } from 'react'
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes,
+  useNavigate,
+} from 'react-router-dom'
 import './Nav-Con.css'
 import Replace from '../Concepts/Replace'
 import App from '../../App'
@@ -9,6 +16,7 @@ import Navbar from './Navbar'
 import Signup from '../Login/Signup-form'
 import Home from '../HomePage'
 import Login from '../Login/Login-form'
+import Hooks from '../Concepts/Hooks'
 
 const root2 = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -21,13 +29,15 @@ const Exit = () => {
 }
 
 function CustomNav() {
-  const [isWindowOpen, setWindow] = useState(false)
+  const [isWindowOpen, setWindow] = useState(true)
+
   const li = [
     [
-      'Replace',
+      'Fetch Data',
       'https://img.icons8.com/color/48/dashboard-layout.png',
       '/replace',
     ],
+    ['Hooks', 'https://img.icons8.com/color/48/webhook.png', '/hooks'],
     ['Exit', 'https://img.icons8.com/color/48/back--v1.png', '/exit'],
 
     // Add more items as needed
@@ -71,12 +81,13 @@ function CustomNav() {
         </nav>
         <div className='content'>
           <Routes>
+            <Route path='/concept' element={<Replace />} />
             <Route path='/replace' element={<Replace />} />
+            <Route path='/hooks' element={<Hooks />} />
             <Route path='/exit' element={<Exit />} />
             <Route path='/login' element={<Login />} />
             <Route path='/home' element={<Home />} />
             <Route path='/signup' element={<Signup />} />
-
             {/* Add more routes as needed */}
           </Routes>
         </div>

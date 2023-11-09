@@ -24,16 +24,16 @@ const navLinkStyle = {
 function Navbar() {
   return (
     <nav style={navbarStyle}>
-      <div style={logoStyle}>My App</div>
+      <div style={logoStyle}>React Practice</div>
       <ul style={navLinkStyle}>
         <li>
-          <a href='/home' style={{ color: 'white', textDecoration: 'none' }}>
+          <a href='/' style={{ color: 'white', textDecoration: 'none' }}>
             Home
           </a>
         </li>
         <li>
           <a href='/concept' style={{ color: 'white', textDecoration: 'none' }}>
-            Concept
+            React Concepts
           </a>
         </li>
         <li>

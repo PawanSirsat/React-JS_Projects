@@ -26,7 +26,7 @@ function Login() {
       )
 
       if (user) {
-        navigate('/home')
+        navigate('/')
       } else {
         alert('Invalid username or password')
       }
