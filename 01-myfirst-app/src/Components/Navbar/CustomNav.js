@@ -5,6 +5,10 @@ import './Nav-Con.css'
 import Replace from '../Concepts/Replace'
 import App from '../../App'
 import ReactDOM from 'react-dom'
+import Navbar from './Navbar'
+import Signup from '../Login/Signup-form'
+import Home from '../HomePage'
+import Login from '../Login/Login-form'
 
 const root2 = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -35,6 +39,7 @@ function CustomNav() {
 
   return (
     <Router>
+      <Navbar />
       <div className='flex-container'>
         <nav className='navbar-menu' style={{ width: isWindowOpen ? 250 : 60 }}>
           <div className='burger' onClick={openClose}>
@@ -68,6 +73,9 @@ function CustomNav() {
           <Routes>
             <Route path='/replace' element={<Replace />} />
             <Route path='/exit' element={<Exit />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/signup' element={<Signup />} />
 
             {/* Add more routes as needed */}
           </Routes>
