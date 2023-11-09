@@ -6,7 +6,7 @@ import Login from './Components/Login/Login-form'
 import Home from './Components/HomePage'
 import Navbar from './Components/Navbar/Navbar'
 import Signup from './Components/Login/Signup-form'
-import Replace from './Components/Concepts/Replace'
+import CustomNav from './Components/Navbar/CustomNav'
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/home' element={<Home />} />
-          <Route path='/replace' element={<Replace />} />
+          <Route path='/concept' element={<CustomNav />} />
         </Routes>
       </div>
     </Router>
