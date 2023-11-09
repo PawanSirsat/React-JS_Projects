@@ -2,7 +2,14 @@
 @backgroundColor: white;
 @textcolor: #000000;
 @borderLeftColor: #58b5fc;
-
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.flex-container {
+  display: flex;
+}
 .navbar-menu {
   height: 100vh;
   background-color: backgroundColor;
@@ -29,9 +36,9 @@
   font-size: 16px;
   letter-spacing: 0px;
   line-height: 38px;
-  color: textcolor;
+  color: rgb(39, 39, 39);
   font-family: 'Lato';
-  font-weight: 400;
+  font-weight: bold;
 }
 .navbar__li-box:first-child {
   margin-top: 53px;

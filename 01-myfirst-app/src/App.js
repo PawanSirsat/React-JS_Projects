@@ -7,6 +7,16 @@ import Home from './Components/HomePage'
 import Navbar from './Components/Navbar/Navbar'
 import Signup from './Components/Login/Signup-form'
 import CustomNav from './Components/Navbar/CustomNav'
+import ReactDOM from 'react-dom'
+const root1 = ReactDOM.createRoot(document.getElementById('root'))
+
+const Change = () => {
+  root1.render(
+    <React.StrictMode>
+      <CustomNav />
+    </React.StrictMode>
+  )
+}
 
 function App() {
   return (
@@ -17,7 +27,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/home' element={<Home />} />
-          <Route path='/concept' element={<CustomNav />} />
+          <Route path='/concept' element={<Change />} />
         </Routes>
       </div>
     </Router>
