@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import { getGeneratedPassword } from './data'
+import { getGeneratedPassword, getNewPassword } from './data'
 import WebsiteList from './WebsiteList'
 
 const SavedPasswords = () => {
   const [website, setWebsite] = useState('')
   const [username, setUsername] = useState('')
-  const [password, setPassword] = useState(getGeneratedPassword())
+  const [password, setPassword] = useState(getNewPassword())
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [passwords, setPasswords] = useState([])
 
@@ -56,13 +56,13 @@ const SavedPasswords = () => {
 
     setWebsite('')
     setUsername('')
-    setPassword(getGeneratedPassword()) // Reset the password after submission
+    setPassword(getNewPassword()) // Reset the password after submission
   }
 
   return (
     <>
       <div className='w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-orange-500'>
-        <h2 className='text-2xl font-bold mb-4'>Password Manager</h2>
+        <h2 className='text-2xl font-bold mb-4 text-blue-500'>Save Password</h2>
 
         <form onSubmit={handleSubmit}>
           <input

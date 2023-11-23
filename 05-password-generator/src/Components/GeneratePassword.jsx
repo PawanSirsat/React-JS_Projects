@@ -1,5 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { setGeneratedPassword } from './data'
+import { setGeneratedPassword, getGeneratedPassword } from './data'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCopy } from '@fortawesome/free-solid-svg-icons'
 
 const GeneratePassword = () => {
   const [length, setLength] = useState(8)
@@ -12,15 +14,7 @@ const GeneratePassword = () => {
   const passwordRef = useRef(null)
 
   const passwordGenerator = useCallback(() => {
-    let pass = ''
-    let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-    if (numberAllowed) str += '0123456789'
-    if (charAllowed) str += '!@#$%^&*-_+=[]{}~'
-
-    for (let i = 1; i <= length; i++) {
-      let char = Math.floor(Math.random() * str.length + 1)
-      pass += str.charAt(char)
-    }
+    let pass = getGeneratedPassword(numberAllowed, charAllowed, length)
     setiscopy(false)
     setPassword(pass)
     setGeneratedPassword(pass)
@@ -41,7 +35,9 @@ const GeneratePassword = () => {
 
   return (
     <div className='w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-orange-500'>
-      <h1 className='text-white text-center my-3'>Password generator</h1>
+      <h2 className='text-2xl font-bold mb-4 text-blue-500'>
+        Generate Password
+      </h2>
       <div className='flex shadow rounded-lg overflow-hidden mb-4'>
         <input
           type='text'
@@ -55,6 +51,13 @@ const GeneratePassword = () => {
           onClick={copyPasswordToClipboard}
           className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'
         >
+          <img
+            style={{ marginRight: '5px', display: 'inline-block' }} // Adjust the margin as needed
+            width='24'
+            height='24'
+            src='https://img.icons8.com/material/24/copy--v1.png'
+            alt='copy--v1'
+          />
           {iscopy ? 'Copied' : 'Copy'}
         </button>
       </div>
