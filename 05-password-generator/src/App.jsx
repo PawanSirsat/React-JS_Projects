@@ -1,6 +1,12 @@
 // src/App.js
 import React from 'react'
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes,
+  Navigate,
+} from 'react-router-dom'
 import GeneratePassword from './Components/GeneratePassword'
 import SavedPasswords from './Components/SavedPasswords'
 
@@ -36,6 +42,11 @@ const App = () => {
           <Routes>
             <Route path='/generate-password' element={<GeneratePassword />} />
             <Route path='/saved-passwords' element={<SavedPasswords />} />
+            {/* Default route */}
+            <Route
+              path='/'
+              element={<Navigate to='/generate-password' replace />}
+            />
           </Routes>
         </div>
       </div>

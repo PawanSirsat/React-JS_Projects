@@ -1,20 +1,12 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { setGeneratedPassword } from './data'
 
 const GeneratePassword = () => {
   const [length, setLength] = useState(8)
   const [numberAllowed, setNumberAllowed] = useState(false)
   const [charAllowed, setCharAllowed] = useState(false)
   const [password, setPassword] = useState('')
-  const [website, setWebsite] = useState('')
-  const [localpassword, setlocalPassword] = useState('')
-  const [passwords, setPasswords] = useState([])
-  const [showPassword, setShowPassword] = useState(false)
-
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword)
-  }
+  const [iscopy, setiscopy] = useState(false)
 
   //useRef hook
   const passwordRef = useRef(null)
@@ -29,43 +21,23 @@ const GeneratePassword = () => {
       let char = Math.floor(Math.random() * str.length + 1)
       pass += str.charAt(char)
     }
+    setiscopy(false)
     setPassword(pass)
+    setGeneratedPassword(pass)
   }, [length, numberAllowed, charAllowed, setPassword])
+
+  const copyPasswordToClipboard = useCallback(() => {
+    setiscopy(true)
+    passwordRef.current?.select()
+    passwordRef.current?.setSelectionRange(0, 999)
+    window.navigator.clipboard.writeText(password)
+  }, [password])
 
   useEffect(() => {
     passwordGenerator()
   }, [length, numberAllowed, charAllowed, setPassword, passwordGenerator])
 
   //Save In Local Storage for
-
-  useEffect(() => {
-    const storedPasswords = JSON.parse(localStorage.getItem('passwords')) || []
-    setPasswords(storedPasswords)
-  }, [])
-
-  //Handel Submit
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    if (!localpassword) setlocalPassword(password)
-    if (!website || !localpassword) {
-      alert('Please enter both website and password.')
-      return
-    }
-
-    const newPassword = {
-      website,
-      password: localpassword,
-    }
-
-    const newPasswords = [...passwords, newPassword]
-    setPasswords(newPasswords)
-    localStorage.setItem('passwords', JSON.stringify(newPasswords))
-
-    setWebsite('')
-    setlocalPassword('')
-  }
 
   return (
     <div className='w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-orange-500'>
@@ -77,9 +49,13 @@ const GeneratePassword = () => {
           className='outline-none w-full py-1 px-3'
           placeholder='Password'
           readOnly
+          ref={passwordRef}
         />
-        <button className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>
-          copy
+        <button
+          onClick={copyPasswordToClipboard}
+          className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'
+        >
+          {iscopy ? 'Copied' : 'Copy'}
         </button>
       </div>
       <div className='flex text-sm gap-x-2 '>
@@ -127,47 +103,6 @@ const GeneratePassword = () => {
         </button>
       </div>
       <br></br>
-      <div className='max-w-2xl mx-auto p-4 border rounded'>
-        <h2 className='text-2xl font-bold mb-4'>Password Manager</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type='text'
-            placeholder='Enter website'
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-            className='w-full p-2 mb-2 border rounded'
-          />
-          <div className='relative'>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              placeholder='Enter password'
-              value={localpassword || password}
-              onChange={(e) => setlocalPassword(e.target.value)}
-              className='w-full p-2 mb-2 border rounded'
-            />
-            <span
-              className='absolute top-1/2 right-2 transform -translate-y-1/2 cursor-pointer'
-              onClick={handleTogglePassword}
-            >
-              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-            </span>
-          </div>
-
-          <button
-            type='submit'
-            className='w-full p-2 bg-green-500 text-white rounded cursor-pointer'
-          >
-            Save Password
-          </button>
-        </form>
-        <ul className='list-none p-0'>
-          {passwords.map((item, index) => (
-            <li key={index} className='mb-2'>
-              <strong>{item.website}:</strong> {item.password}
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   )
 }
